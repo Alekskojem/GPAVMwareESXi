@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   prometheus_server:
     image: prom/prometheus:v2.26.0
@@ -11,7 +10,7 @@ services:
     ports:
     - 9090:9090
     environment:
-      HOST_IP: $HOST_IP
+      HOST_IP: $192.168.1.10
     privileged: true
     deploy:
       restart_policy:
@@ -44,10 +43,10 @@ services:
     ports:
     - 9272:9272
     environment:
-      VSPHERE_HOST: $VSPHERE_HOST
+      VSPHERE_HOST: $192.168.1.100/sdk
       VSPHERE_IGNORE_SSL: "True"
-      VSPHERE_USER: $VSPHERE_USER
-      VSPHERE_PASSWORD: "$VSPHERE_PASS"
+      VSPHERE_USER: $userro
+      VSPHERE_PASSWORD: "$ckj;yb2qg%#fhjkm"
     deploy:
       restart_policy:
         condition: on-failure
