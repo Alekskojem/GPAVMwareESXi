@@ -86,5 +86,46 @@ SMTP_HELLO=[yourdomain.com] SMTP_TO=[first.last@gmail.com] SMTP_FROM=[prometheus
 ==================================================================================================================================
 |                       |                                   |   The password to use when authenticating with theSMTP(email)      |
 |     SMTP_PASS         |    your_smtp_secret_password      |  server when sending an email from the Replaces token              |
-|                       |                                   |      {SMTP_PASS}} in alertmanager.yml.tpl                          |
+|                       |                                   |      {{SMTP_PASS}} in alertmanager.yml.pl                          |
 ==================================================================================================================================
+|                       |                                   |   This normally will be the host IP that you are running           |
+|     HOST_IP           |         192.168.1.10              |   these docker containers on. Replaces token {{HOST_IP}}           |
+|                       |                                   |   in prometheus.yml.tp                                             |
+==================================================================================================================================
+|                       |                                   |   The hostname or IP of the server hosting the esxi                |
+|    ESXI_HOSTNAME      |        esxi.yourdomain.com        |    VSphere virtual machine OS. Replaces token {{ESXI_HOSTNAME}}    |
+|                       |                                   |  which defines a custom_rule for CPU usage on the esxi host.       |
+==================================================================================================================================
+|                       |                                   |  The hostname or ip that will be queried for VMware metrics.       |
+|    VSPHERE_HOST       |         192.168.1.100 or          |  This value is used by docker to replace instances of              |
+|                       |        esxi.yourdomain.com        |  $VSPHERE_HOST in the docker-compose.yml configuration             |
+==================================================================================================================================
+|                       |                                   |  The username used to authenticate to VSphere API or GUI.          |
+|   VSPHERE_USER        |       yourvsphereusername         |  This value is used by docker to replace instances                 |
+|                       |                                   |  of $VSPHERE_USER in the docker-compose.yml configuration.         |
+==================================================================================================================================
+|                       |                                   |  The password for the VSPHERE_USER account. This value is          |
+|   VSPHERE_PASS        |      yourvspherepassword          |  used by docker to replace instances of $VSPHERE_PASS in           |
+|                       |                                   |  the docker-compose.yml configuration and is passed to the         |
+|                       |                                   |  docker-compose up command.                                        |
+==================================================================================================================================
+
+Доступ к вашим серверам после их запуска
+Prometheus http://[HOST_IP]:9090
+Grafana 
+Исходное имя пользователя и пароль: admin/admin.
+http://[HOST_IP]:3000
+Prometheus AlertManager
+http://[HOST_IP]:9093
+
+Импорт панелей мониторинга по умолчанию в Grafana
+В этом репозитории есть папка с исходными панелями мониторинга, которые необходимо импортировать в Grafana для получения стандартных визуальных представлений метрик, предоставляемых этой конфигурацией. В папке grafana_dashboards вы найдете файлы alertmanager.json и VMware ESXi-1620275779057.json. Чтобы импортировать панели мониторинга из панели мониторинга Grafana, нажмите на значок на левой панели навигации.
+Выберите импорт 
+Либо загрузите файлы JSON, используя кнопку «Загрузить JSON», либо вставьте содержимое JSON в окно ввода JSON и нажмите «Загрузить». 
+После импорта вы можете перейти к импортированным панелям, щелкнув текст «Общие» в верхней части целевой страницы Grafana и выбрав импортированную панель мониторинга.
+Кредиты / Ссылки
+VMware Exporter https://github.com/pryorda/vmware_exporter
+Большинство выражений (expr), используемых в правилах оповещений Prometheus, а также основы языка запросов Prometheus можно найти здесь: https://prometheus.io/docs/prometheus/latest/querying/basics
+
+сопровождающий
+Steve Stevenson DawtCom
