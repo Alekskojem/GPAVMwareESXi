@@ -24,7 +24,7 @@ VMWare Exporter (служба сбора метрик из VMWare и их пре
 На этой странице не рассматривается установка докера, и предполагается, что вы уже знаете, как это сделать, или уже установили его на целевом компьютере. 
 Установку докера можно найти здесь: https://docs.docker.com/get-docker/
 
-Або можна слідувати інструкціі.
+## Або можна слідувати інструкціі.
 To install Docker Engine and Docker Compose on Ubuntu 22.04, follow these steps:
 1. Update System Packages:
 sudo apt update && sudo apt upgrade -y
@@ -54,7 +54,7 @@ Docker Compose version v2.17.2
 Чтобы запустить контейнерную среду, которая будет отслеживать ваши ESXI, Prometheus, менеджер предупреждений Prometheus и хосты Grafana, выполните эту простую команду в оболочке Linux.
 Заменив значения, указанные в скобках ниже, на ваши конкретные данные.
 
-Не включайте скобки в заменяемое значение.
+### Не включайте скобки в заменяемое значение.
 В этой командной строке предполагается, что вы используете Gmail в качестве поставщика электронной почты.
 _SMTP_HELLO=[yourdomain.com] SMTP_TO=[first.last@gmail.com] SMTP_FROM=[prometheus@yourdomain.com] SMTP_SMARTHOST=smtp.gmail.com:587 SMTP_USER=[your_gmail_user@gmail.com] SMTP_PASS=[your_google_app_password] HOST_IP=[host_ip_running_docker_compose] ESXI_HOSTNAME=[esxi.yourdomain.com] VSPHERE_HOST=[esxi_host_ip_or_hostname] VSPHERE_USER=[vsphere_user] VSPHERE_PASS=[vsphere_pass] ./start_containers.sh_
 
@@ -98,6 +98,16 @@ _VSPHERE_HOST=$VSPHERE_HOST VSPHERE_USER=$VSPHERE_USER VSPHERE_PASS=$VSPHERE_PAS
 Выберите импорт 
 Либо загрузите файлы JSON, используя кнопку «Загрузить JSON», либо вставьте содержимое JSON в окно ввода JSON и нажмите «Загрузить». 
 После импорта вы можете перейти к импортированным панелям, щелкнув текст «Общие» в верхней части целевой страницы Grafana и выбрав импортированную панель мониторинга.
+
+vmware_exporter: экспортер будет иметь удаленный доступ к кластеру vmware и собирать из него информацию.
+Сервер Prometheus будет собирать метрики, предоставляемые vmware_exporter. 
+
+Обратите внимание, что вам нужно будет указать учетные данные в этом разделе, чтобы экспортер мог связаться с кластером esxi. По умолчанию экспортер будет предоставлять метрики через порт 9272.
+
+Экспортеру не обязательно работать на серверах ESXi, но необходимо получать к ним удаленный доступ через вызовы API. Его можно развернуть на одном сервере с контейнером Prometheus.
+
+
+
 ### Кредиты / Ссылки
 VMware Exporter https://github.com/pryorda/vmware_exporter
 
